@@ -1,0 +1,12 @@
+#!/bin/bash -e
+
+requiredNpmVersion="6.9.0"
+currentNpmVersion=$(npm -v)
+
+# Install npm dependencies across all generally used modules
+echo -e "Installing build and npm dependencies..\n"
+npm install
+cd common && npm install
+cd ../api && npm install
+cd ../app && npm install
+cd ..

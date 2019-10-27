@@ -1,1 +1,1 @@
-# buy-vs-rent
+# Real Estate Research
