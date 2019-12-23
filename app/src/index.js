@@ -8,6 +8,7 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import reducer from './store/reducers';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import 'rc-slider/dist/rc-slider.min.css';
 
 const composeEnhancers =
   window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ : compose;
