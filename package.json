@@ -5,13 +5,13 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "deps": "bash ./scripts/install-dependencies"
+    "deps": "./scripts/install-dependencies"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/lightbringer1991/re-research.git"
   },
-  "author": "",
+  "author": "Tuan Nguyen",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/lightbringer1991/re-research/issues"

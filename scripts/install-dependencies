@@ -1,7 +1,13 @@
 #!/bin/bash -e
 
-requiredNpmVersion="6.9.0"
+requiredNpmVersion="6.13.4"
 currentNpmVersion=$(npm -v)
+
+# Install required npm version
+if [ ! -n "${npm_config_skip_npm_cli_install}" ] && [ "$currentNpmVersion" != "$requiredNpmVersion" ]; then
+    echo -e "Installing required npm version..\n"
+    npm install -g npm@$requiredNpmVersion
+fi
 
 # Install npm dependencies across all generally used modules
 echo -e "Installing build and npm dependencies..\n"
