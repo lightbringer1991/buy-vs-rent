@@ -1,26 +1,26 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Row, Col } from 'react-bootstrap';
+import Resources from './components/Resources';
+import Map from './components/Map';
+import './App.scss';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+const resources = {
+  constants: '/api/constants',
+};
+
+const App = () => (
+  <Resources resources={resources}>
+    <div className="container app-container">
+      <Row>
+        <Col xs={12} sm={6}>
+          <div className="map-container">
+            <Map />
+          </div>
+        </Col>
+        <Col xs={12} sm={6}></Col>
+      </Row>
     </div>
-  );
-}
+  </Resources>
+);
 
 export default App;
