@@ -1,8 +1,11 @@
 import React from 'react';
-import { Row, Col, Button } from 'react-bootstrap';
-import Slider from 'rc-slider';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 import Resources from './components/Resources';
-import Map from './components/Map';
+import { Map } from './components/Map';
+import FilterBar from './components/FilterBar';
+import Slider from './components/Slider';
+import PropertyDetails from './components/PropertyDetails';
 import { AppProvider } from './AppContext';
 import { getUrlParameter } from './utils';
 import './App.scss';
@@ -26,23 +29,17 @@ const App = () => {
         <AppProvider value={contextData}>
           <Row>
             <Col xs={12} sm={6} className="app-container__left-panel">
-              <div className="app-container__search-box">
-                <input
-                  type="text"
-                  value={searchValue}
-                  onChange={(event) => setSearchValue(event.target.value)}
-                  placeholder="realestate.com.au listing id"
-                />
-                <Button>Search</Button>
-              </div>
+              <FilterBar defaultValue={searchValue} onChange={setSearchValue} />
 
-              <Slider className="app-container__radius-slider" min={500} max={2000} defaultValue={radius} step={500} onChange={setRadius} />
+              <Slider radius={radius} onChange={setRadius} />
 
               <div className="map-container">
-                <Map />
+                <Map listingId={searchValue} radius={radius} />
               </div>
             </Col>
-            <Col xs={12} sm={6}></Col>
+            <Col xs={12} sm={6}>
+              <PropertyDetails listingId={searchValue} />
+            </Col>
           </Row>
         </AppProvider>
       </div>

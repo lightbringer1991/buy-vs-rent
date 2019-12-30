@@ -1,0 +1,19 @@
+.walkscore-component {
+  font-weight: bold;
+  display: flex;
+
+  .walkscore-component__logo {
+    width: 120px;
+    height: 19px;
+    border: 0;
+  }
+
+  .walkscore-component__score {
+    font-size: 18px;
+  }
+
+  .walkscore-component__helper img {
+    width: 13px;
+    height: 13px;
+  }
+}

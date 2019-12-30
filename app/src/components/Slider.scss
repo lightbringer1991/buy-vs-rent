@@ -1,0 +1,10 @@
+.slider-component {
+  display: flex;
+  margin-bottom: 12px;
+  align-items: center;
+
+  .slider-component__slider {
+    margin-right: 6px;
+    flex-grow: 1;
+  }
+}

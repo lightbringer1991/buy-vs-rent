@@ -3,6 +3,7 @@ export const UPDATE_RESOURCES = 'resources.update';
 const initialState = {
   resources: {
     constants: {},
+    properties: {},
   },
 };
 
