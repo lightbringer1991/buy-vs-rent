@@ -1,0 +1,15 @@
+.property-details {
+
+  .property-details__field {
+    margin-bottom: 6px;
+  }
+
+  .property-details__data {
+    max-height: 120px;
+    overflow-y: scroll;
+
+    &.property-details__data--empty {
+      color: red;
+    }
+  }
+}

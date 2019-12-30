@@ -1,0 +1,9 @@
+.app-container__filter-bar {
+  display: flex;
+  margin-bottom: 12px;
+
+  input {
+    flex-grow: 1;
+    margin-right: 6px;
+  }
+}

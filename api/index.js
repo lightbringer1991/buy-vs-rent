@@ -55,4 +55,6 @@ app.get('/api/walkscore', (req, res, next) => {
     .catch((err) => next(err));
 });
 
+app.use('/api/realestate', require('./src/routes/realestate'));
+
 app.listen(process.env.API_PORT, () => console.log(`Example app listening on port ${process.env.API_PORT}!`));
