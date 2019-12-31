@@ -1,0 +1,17 @@
+@import '../../scss/variables';
+
+.vacancy-rate-component {
+  display: inline;
+}
+
+.vacancy-rate-component--success {
+  color: $success;
+}
+
+.vacancy-rate-component--warning {
+  color: $warning;
+}
+
+.vacancy-rate-component--danger {
+  color: $danger;
+}
