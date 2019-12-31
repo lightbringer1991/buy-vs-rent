@@ -43,7 +43,7 @@ class RealEstate {
       channel: isSold ? 'sold' : 'buy',
       filters: {
         surroundingSuburbs: true,
-        excludeTier2: true,
+        excludeTier2: false,
         geoPrecision: 'address',
         excludeAddressHidden: false,
         localities:[{ searchLocation: location }],

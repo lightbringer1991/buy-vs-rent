@@ -9,12 +9,8 @@ import Col from 'react-bootstrap/Col';
 import Walkscore from './Walkscore';
 import VacancyRate from './VacancyRate';
 import { getPropertyById } from '../../store/selectors';
+import { formatAddress } from '../helpers';
 import './PropertyDetails.scss';
-
-const formatAddress = (address) => {
-  const { streetAddress, postcode, suburb, state } = address;
-  return `${streetAddress}, ${suburb}, ${state} ${postcode}`;
-};
 
 const formatFeatures = ({ generalFeatures }) => {
   const generalData = pick(generalFeatures, ['bedrooms', 'bathrooms', 'parkingSpaces']);
@@ -93,7 +89,7 @@ const PropertyDetails = ({ property }) => {
 };
 
 export const mapStateToProps = (state, { listingId }) => ({
-  property: getPropertyById(state, listingId),
+  property: getPropertyById(state, { listingId }),
 });
 
 export default connect(mapStateToProps)(PropertyDetails);

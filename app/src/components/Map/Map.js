@@ -1,10 +1,13 @@
 import get from 'lodash/get';
+import map from 'lodash/map';
 import { Circle, GoogleMap, LoadScript, Marker as GoogleMarker } from '@react-google-maps/api';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
+import Marker from './Marker';
+import { getNearbySoldProperties, getPropertyById } from '../../store/selectors';
 import houseIcon from '../../images/house.png';
-import { getPropertyById } from '../../store/selectors';
+import './Map.scss';
 
 // center at Melbourne CBD
 const DEFAULT_CENTER = { lat: -37.8175348, lng: 144.9328441 };
@@ -14,11 +17,12 @@ class Map extends React.Component {
     constants: PropTypes.object,
     listingId: PropTypes.string,
     property: PropTypes.object,
+    nearbyProperties: PropTypes.object,
     radius: PropTypes.number,
   };
 
   render() {
-    const { constants, property, radius } = this.props;
+    const { constants, property, radius, nearbyProperties } = this.props;
     if (!constants.googleMapApiKey) return null;
 
     let center = DEFAULT_CENTER;
@@ -56,15 +60,18 @@ class Map extends React.Component {
         >
           <Circle center={center} radius={radius} options={radiusOptions} />
           <GoogleMarker position={center} icon={houseIcon} />
+
+          {map(nearbyProperties, (prop) => (<Marker key={prop.listingId} listingId={prop.listingId} />))}
         </GoogleMap>
       </LoadScript>
     );
   }
 }
 
-const mapStateToProps = (state, { listingId }) => ({
+const mapStateToProps = (state, { listingId, radius }) => ({
   constants: state.resources.constants,
-  property: getPropertyById(state, listingId),
+  property: getPropertyById(state, { listingId }),
+  nearbyProperties: getNearbySoldProperties(state, { listingId, radius }),
 });
 
 export default connect(mapStateToProps)(Map);

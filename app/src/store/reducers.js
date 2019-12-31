@@ -4,6 +4,7 @@ const initialState = {
   resources: {
     constants: {},
     properties: {},
+
   },
 };
 
