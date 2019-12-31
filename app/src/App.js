@@ -5,7 +5,7 @@ import Resources from './components/Resources';
 import { Map } from './components/Map';
 import FilterBar from './components/FilterBar';
 import Slider from './components/Slider';
-import PropertyDetails from './components/PropertyDetails';
+import { PropertyDetails } from './components/PropertyDetails';
 import { AppProvider } from './AppContext';
 import { getUrlParameter } from './utils';
 import './App.scss';

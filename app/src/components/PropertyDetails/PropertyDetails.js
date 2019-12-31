@@ -7,7 +7,8 @@ import { connect } from 'react-redux';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Walkscore from './Walkscore';
-import { getPropertyById } from '../store/selectors';
+import VacancyRate from './VacancyRate';
+import { getPropertyById } from '../../store/selectors';
 import './PropertyDetails.scss';
 
 const formatAddress = (address) => {
@@ -79,6 +80,12 @@ const PropertyDetails = ({ property }) => {
         <Col xs={4}>Walkscore</Col>
         <Col className="property-details__data" xs={8}>
           <Walkscore {...property.walkScore} />
+        </Col>
+      </Row>
+      <Row className="property-details__field">
+        <Col xs={4}>Vacancy Rate</Col>
+        <Col className="property-details__data" xs={8}>
+          <VacancyRate data={property.vacancyRate} />
         </Col>
       </Row>
     </div>

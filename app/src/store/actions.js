@@ -22,7 +22,17 @@ export const obtainPropertyById = (id) => async (dispatch, getState) => {
     walkScore = response.data.walkscore;
   }
 
-  dispatch({ type: UPDATE_RESOURCES, name: 'properties', value: { ...state.resources.properties, [id]: { ...data, walkScore } } });
+  // get vacancy rate data
+  let vacancyRate = {};
+  if (!isEmpty(get(data, 'address.postcode'))) {
+    const response = await axios.get(`${process.env.REACT_APP_API_ENDPOINT}/api/vacancy-rates/${data.address.postcode}`);
+    vacancyRate = response.data.vacancyRate;
+  }
+
+  dispatch({ type: UPDATE_RESOURCES, name: 'properties', value: { ...state.resources.properties, [id]: { ...data, walkScore, vacancyRate } } });
+
+  // get nearby sold properties
+
 
   return data;
 };

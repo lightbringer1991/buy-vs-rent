@@ -1,5 +1,5 @@
 import get from 'lodash/get';
-import { Circle, GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
+import { Circle, GoogleMap, LoadScript, Marker as GoogleMarker } from '@react-google-maps/api';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
@@ -55,7 +55,7 @@ class Map extends React.Component {
           mapContainerStyle={{ height: '100%', width: '100%' }}
         >
           <Circle center={center} radius={radius} options={radiusOptions} />
-          <Marker position={center} icon={houseIcon} />
+          <GoogleMarker position={center} icon={houseIcon} />
         </GoogleMap>
       </LoadScript>
     );
