@@ -9,12 +9,8 @@ import Col from 'react-bootstrap/Col';
 import Walkscore from './Walkscore';
 import VacancyRate from './VacancyRate';
 import { getPropertyById } from '../../store/selectors';
+import { formatAddress } from '../helpers';
 import './PropertyDetails.scss';
-
-const formatAddress = (address) => {
-  const { streetAddress, postcode, suburb, state } = address;
-  return `${streetAddress}, ${suburb}, ${state} ${postcode}`;
-};
 
 const formatFeatures = ({ generalFeatures }) => {
   const generalData = pick(generalFeatures, ['bedrooms', 'bathrooms', 'parkingSpaces']);
@@ -36,8 +32,8 @@ const PropertyDetails = ({ property }) => {
     <div className="property-details">
       <Row className="property-details__field">
         <Col className="property-details__data" xs={{ span: 8, offset: 4 }}>
-          <a target="_blank" rel="noopener noreferrer" href={property.statementOfInformation.href}>Statement of Information</a> <br />
-          <a target="_blank" rel="noopener noreferrer" href={property._links.prettyUrl.href}>Listing URL</a>
+          <a target="_blank" rel="noopener noreferrer" href={get(property, 'statementOfInformation.href')}>Statement of Information</a> <br />
+          <a target="_blank" rel="noopener noreferrer" href={get(property, '_links.prettyUrl.href')}>Listing URL</a>
         </Col>
       </Row>
       <Row className="property-details__field">
@@ -93,7 +89,7 @@ const PropertyDetails = ({ property }) => {
 };
 
 export const mapStateToProps = (state, { listingId }) => ({
-  property: getPropertyById(state, listingId),
+  property: getPropertyById(state, { listingId }),
 });
 
 export default connect(mapStateToProps)(PropertyDetails);
