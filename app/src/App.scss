@@ -20,4 +20,12 @@
       width: 100%;
     }
   }
+
+  .app-container-left-panel-accordion {
+    margin-bottom: 12px;
+
+    .card-header {
+      cursor: pointer;
+    }
+  }
 }

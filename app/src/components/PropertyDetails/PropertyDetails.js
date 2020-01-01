@@ -4,8 +4,8 @@ import pick from 'lodash/pick';
 import classnames from 'classnames';
 import React from 'react';
 import { connect } from 'react-redux';
-import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import Row from 'react-bootstrap/Row';
 import Walkscore from './Walkscore';
 import VacancyRate from './VacancyRate';
 import AveragePrice from './AveragePrice';
@@ -77,12 +77,6 @@ const PropertyDetails = ({ property, radius }) => {
         <Col xs={4}>Walkscore</Col>
         <Col className="property-details__data" xs={8}>
           <Walkscore {...property.walkScore} />
-        </Col>
-      </Row>
-      <Row className="property-details__field">
-        <Col xs={4}>Vacancy Rate</Col>
-        <Col className="property-details__data" xs={8}>
-          <VacancyRate data={property.vacancyRate} />
         </Col>
       </Row>
       <Row className="property-details__field">
