@@ -1,14 +1,11 @@
-import get from 'lodash/get';
 import { Marker as GoogleMarker, InfoWindow } from '@react-google-maps/api';
 import PropTypes from 'prop-types';
 import React from 'react';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
 import { connect } from 'react-redux';
+import BriefPropertyDetails from '../BriefPropertyDetails';
 import { obtainPropertyById } from '../../store/actions';
-import { formatAddress } from '../helpers';
+import { getPropertyById } from '../../store/selectors';
 import soldIcon from '../../images/sold.png';
-import {getPropertyById} from "../../store/selectors";
 
 const Marker = ({ listingId, property, type, status, getPropertyById }) => {
   const [isOpen, setIsOpen] = React.useState(false);
@@ -49,13 +46,7 @@ const Marker = ({ listingId, property, type, status, getPropertyById }) => {
         >
           <div className="marker-component__popover">
             {property.title ? (
-              <React.Fragment>
-                <Row><Col>{get(property, 'price.display')}</Col></Row>
-                <Row><Col>{formatAddress(property.address)}</Col></Row>
-                <Row>
-                  <Col dangerouslySetInnerHTML={{ __html: get(property, 'landSize.display', 'Unknown land size') }}/>
-                </Row>
-              </React.Fragment>
+              <BriefPropertyDetails property={property} />
             ) : 'Loading'}
           </div>
         </InfoWindow>
