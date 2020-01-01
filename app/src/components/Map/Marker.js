@@ -23,8 +23,6 @@ const Marker = ({ listingId, property, type, status, getPropertyById }) => {
   };
 
   const clickHandler = () => {
-    console.log({ listingId });
-
     getPropertyById(listingId, true);
     setIsOpen(true);
   };

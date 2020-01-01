@@ -1,6 +1,10 @@
 import forEach from 'lodash/forEach';
 import get from 'lodash/get';
+import keyBy from 'lodash/keyBy';
 import size from 'lodash/size';
+import sortBy from 'lodash/sortBy';
+import take from 'lodash/take';
+import values from 'lodash/values';
 import { createSelector } from 'reselect';
 import { computeDistanceBetween } from 'spherical-geometry-js';
 
@@ -35,22 +39,31 @@ export const getPropertyById = createSelector(
 
 /**
  * get all properties that are within the specified radius from a specific listingId
- * getNearbySoldProperties(state, { listingId, radius })
+ * if maxPropertyCount is defined, return the nearest properties, up to maxPropertyCount
+ * getNearbySoldProperties(state, { listingId, radius, maxPropertyCount })
  */
 export const getNearbySoldProperties = createSelector(
   getProperty,
   getProperties,
-  (state, { radius }) => radius,
-  (property, allProperties, radius) => {
+  (state, settings) => settings,
+  (property, allProperties, settings) => {
+    if (!property) return {};
+
+    const { radius, maxPropertyCount } = settings;
     const nearbyProperties = {};
     forEach(allProperties, (prop) => {
       if (prop.listingId !== property.listingId) {
-        if (radius > computeDistanceBetween(property.address.location, prop.address.location)) {
-          nearbyProperties[prop.listingId] = prop;
+        const distance = computeDistanceBetween(property.address.location, prop.address.location);
+
+        if (radius > distance) {
+          nearbyProperties[prop.listingId] = { ...prop, distance };
         }
       }
     });
 
-    return nearbyProperties;
+    if (!maxPropertyCount) return nearbyProperties;
+
+    const orderedProperties = sortBy(values(nearbyProperties), 'distance');
+    return keyBy(take(orderedProperties, maxPropertyCount), 'listingId');
   }
 );

@@ -38,7 +38,7 @@ const App = () => {
               </div>
             </Col>
             <Col xs={12} sm={6}>
-              <PropertyDetails listingId={searchValue} />
+              <PropertyDetails listingId={searchValue} radius={radius} />
             </Col>
           </Row>
         </AppProvider>

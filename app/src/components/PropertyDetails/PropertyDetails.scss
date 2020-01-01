@@ -11,5 +11,9 @@
     &.property-details__data--empty {
       color: red;
     }
+
+    &.property-details__data-average-price {
+      max-height: 240px;
+    }
   }
 }
