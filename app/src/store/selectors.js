@@ -80,3 +80,5 @@ export const getNearbySoldProperties = createSelector(
     return keyBy(take(orderedProperties, maxPropertyCount), 'listingId');
   }
 );
+
+export const getSuburbByPostcode = (state, { postcode }) => state.resources.suburbs[postcode];

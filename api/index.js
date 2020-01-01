@@ -28,15 +28,6 @@ app.use(function(req, res, next) {
 // routes
 app.get('/', (req, res) => res.send('Hello world'));
 
-app.get('/api/vacancy-rates/:postcode', (req, res, next) => {
-  const { postcode } = req.params;
-
-  const sqmResearch = new SqmResearch();
-  sqmResearch.getVacancyRate(postcode)
-    .then((data) => res.status(200).json({ vacancyRate: data }))
-    .catch((err) => next(err));
-});
-
 app.get('/api/constants', (req, res) =>
   res.status(200).json({
     googleMapApiKey: process.env.GOOGLE_MAP_API_KEY,
@@ -56,5 +47,7 @@ app.get('/api/walkscore', (req, res, next) => {
 });
 
 app.use('/api/realestate', require('./src/routes/realestate'));
+
+app.use('/api/suburbs', require('./src/routes/suburbs'));
 
 app.listen(process.env.API_PORT, () => console.log(`Example app listening on port ${process.env.API_PORT}!`));
