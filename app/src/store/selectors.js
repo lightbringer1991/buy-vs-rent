@@ -1,3 +1,4 @@
+import filter from 'lodash/filter';
 import forEach from 'lodash/forEach';
 import get from 'lodash/get';
 import keyBy from 'lodash/keyBy';
@@ -8,7 +9,10 @@ import values from 'lodash/values';
 import { createSelector } from 'reselect';
 import { computeDistanceBetween } from 'spherical-geometry-js';
 
-const LAND_SIZE_REGEX = /(\d+)\s*(sqm|m2)/g;
+// 100sqm | 100 sqm
+// 100m2 | 100 m2
+// 100sq.m | 100 sq.m | 100 sq. m
+const LAND_SIZE_REGEX = /(\d+)\s*(sqm|m2|sq\.\s*m)/g;
 
 export const getProperty = (state, { listingId }) => state.resources.properties[listingId];
 
@@ -37,6 +41,15 @@ export const getPropertyById = createSelector(
   }
 );
 
+
+/**
+ * if there is no channel, assuming the property is sold
+ */
+export const getSoldProperties = createSelector(
+  getProperties,
+  (properties) => filter(properties, (property) => !property.channel || property.channel === 'sold')
+);
+
 /**
  * get all properties that are within the specified radius from a specific listingId
  * if maxPropertyCount is defined, return the nearest properties, up to maxPropertyCount
@@ -44,7 +57,7 @@ export const getPropertyById = createSelector(
  */
 export const getNearbySoldProperties = createSelector(
   getProperty,
-  getProperties,
+  getSoldProperties,
   (state, settings) => settings,
   (property, allProperties, settings) => {
     if (!property) return {};
