@@ -1,4 +1,12 @@
 .app-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+
+  .app-container__content {
+    flex-grow: 1;
+  }
+
   .app-container__left-panel {
     display: flex;
     flex-direction: column;

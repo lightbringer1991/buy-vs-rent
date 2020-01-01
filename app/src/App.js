@@ -6,6 +6,7 @@ import { Map } from './components/Map';
 import FilterBar from './components/FilterBar';
 import Slider from './components/Slider';
 import { PropertyDetails } from './components/PropertyDetails';
+import Footer from './components/Footer';
 import { AppProvider } from './AppContext';
 import { getUrlParameter } from './utils';
 import './App.scss';
@@ -27,7 +28,7 @@ const App = () => {
     <Resources resources={resources}>
       <div className="container app-container">
         <AppProvider value={contextData}>
-          <Row>
+          <Row className="app-container__content">
             <Col xs={12} sm={6} className="app-container__left-panel">
               <FilterBar defaultValue={searchValue} onChange={setSearchValue} />
 
@@ -42,6 +43,8 @@ const App = () => {
             </Col>
           </Row>
         </AppProvider>
+
+        <Footer />
       </div>
     </Resources>
   );
