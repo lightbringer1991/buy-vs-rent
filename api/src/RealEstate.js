@@ -30,6 +30,7 @@ class RealEstate {
       'isHouseAndLandPackage',
       'modifiedDate',
       'generalFeatures',
+      'dateSold',
     ]);
   }
 

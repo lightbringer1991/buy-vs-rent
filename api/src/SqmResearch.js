@@ -24,12 +24,6 @@ class SqmResearch {
 
   async getVacancyRate(postCode) {
     const cachedValue = Cache.get(`${VACANCY_KEY_PREFIX}.${postCode}`);
-
-    console.log({
-      key: `${VACANCY_KEY_PREFIX}.${postCode}`,
-      cachedValue,
-    });
-
     if (cachedValue) return cachedValue;
 
     const page = await this.openUrl(`${VACANCY_URL}${postCode}`);

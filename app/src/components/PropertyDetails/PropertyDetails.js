@@ -8,6 +8,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Walkscore from './Walkscore';
 import VacancyRate from './VacancyRate';
+import AveragePrice from './AveragePrice';
 import { getPropertyById } from '../../store/selectors';
 import { formatAddress } from '../helpers';
 import './PropertyDetails.scss';
@@ -17,14 +18,14 @@ const formatFeatures = ({ generalFeatures }) => {
 
   return (
     <React.Fragment>
-      {map(generalData, (feature) => (
-        <Row key={generalData.label}><Col>{feature.label}</Col></Row>
+      {map(generalData, (feature, key) => (
+        <Row key={key}><Col>{feature.label}</Col></Row>
       ))}
     </React.Fragment>
   );
 };
 
-const PropertyDetails = ({ property }) => {
+const PropertyDetails = ({ property, radius }) => {
   if (!property) return null;
 
   const hasLandSize = !!get(property, 'landSize.display');
@@ -61,7 +62,7 @@ const PropertyDetails = ({ property }) => {
         <Col
           className={classnames('property-details__data', { 'property-details__data--empty': !hasLandSize })}
           xs={8}
-          dangerouslySetInnerHTML={{ __html: get(property, 'landSize.display', 'unavailable') }}
+          dangerouslySetInnerHTML={{ __html: get(property, 'landSize.display', 'N/A') }}
         />
       </Row>
       <Row className="property-details__field">
@@ -82,6 +83,12 @@ const PropertyDetails = ({ property }) => {
         <Col xs={4}>Vacancy Rate</Col>
         <Col className="property-details__data" xs={8}>
           <VacancyRate data={property.vacancyRate} />
+        </Col>
+      </Row>
+      <Row className="property-details__field">
+        <Col xs={4}>Nearest Sold Properties</Col>
+        <Col className="property-details__data property-details__data-average-price" xs={8}>
+          <AveragePrice listingId={property.listingId} radius={radius} />
         </Col>
       </Row>
     </div>
