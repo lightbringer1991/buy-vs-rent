@@ -8,7 +8,10 @@ const VACANCY_KEY_PREFIX = 'VACANCY_RATES';
 class SqmResearch {
   async getBrowser() {
     if (!this.browser) {
-      this.browser = await puppeteer.launch();
+      this.browser = await puppeteer.launch({
+        headless: true,
+        args: ['--no-sandbox'],
+      });
     }
 
     return this.browser;
@@ -34,7 +37,7 @@ class SqmResearch {
 
       return chart.options.series;
     });
-    await page.close();
+    await this.browser.close();
 
     // only get the latest data
     const latestData = _(chartData)
