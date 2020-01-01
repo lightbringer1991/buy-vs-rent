@@ -7,8 +7,12 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
 import Table from 'react-bootstrap/Table';
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
+import Popover from 'react-bootstrap/Popover';
+import BriefPropertyDetails from '../BriefPropertyDetails';
 import { getNearbySoldProperties } from '../../store/selectors';
 import { formatAddress } from '../helpers';
+import './AveragePrice.scss';
 
 const MAX_PROPERTY_COUNT = 5;
 
@@ -20,35 +24,43 @@ const AveragePrice = ({ listingId, properties }) => {
   const averageData = priceData.length === 0 ? 0 : sum(priceData) / priceData.length;
 
   return (
-    <React.Fragment>
-      <Table bordered size="sm">
-        <thead>
-          <tr>
-            <th>Address</th>
-            <th>Sold Date</th>
-            <th>Price</th>
-          </tr>
-        </thead>
-        <tbody>
-          {map(properties, (property) => (
+    <Table className="average-price-component" bordered size="sm">
+      <thead>
+        <tr>
+          <th>Address</th>
+          <th>Sold Date</th>
+          <th>Price</th>
+        </tr>
+      </thead>
+      <tbody>
+        {map(properties, (property) => {
+          const popoverData = (
+            <Popover id={property.listingId}>
+              <Popover.Content>
+                <BriefPropertyDetails property={property} />
+              </Popover.Content>
+            </Popover>
+          );
+
+          return (
             <tr key={property.listingId}>
-              <td>
-                <a target="_blank" rel="noopener noreferrer" href={get(property, '_links.prettyUrl.href')}>
-                  {formatAddress(property.address)}
-                </a>
+              <td className="average-price-component__address">
+                <OverlayTrigger overlay={popoverData} trigger={['click']}>
+                  <span>{formatAddress(property.address)}</span>
+                </OverlayTrigger>
               </td>
               <td>{get(property, 'dateSold.display')}</td>
               <td>{get(property, 'price.display', 'N/A')}</td>
             </tr>
-          ))}
+          );
+        })}
 
-          <tr>
-            <td colSpan="2">Average</td>
-            <td>${averageData.toLocaleString()}</td>
-          </tr>
-        </tbody>
-      </Table>
-    </React.Fragment>
+        <tr>
+          <td colSpan="2">Average</td>
+          <td>${averageData.toLocaleString()}</td>
+        </tr>
+      </tbody>
+    </Table>
   );
 };
 

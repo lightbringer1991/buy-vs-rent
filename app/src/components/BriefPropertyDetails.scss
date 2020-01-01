@@ -1,0 +1,18 @@
+@import '../scss/variables';
+
+.property-details-brief {
+  font-size: $font-size-base;
+
+  .property-details-brief__price {
+    font-weight: $font-weight-bold;
+  }
+
+  .property-details-brief__address {
+    font-size: $font-size-sm;
+  }
+
+  .property-details-brief__forward {
+    display: flex;
+    justify-content: flex-end;
+  }
+}
