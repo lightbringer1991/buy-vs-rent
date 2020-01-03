@@ -1,6 +1,8 @@
+const _ = require('lodash');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const express = require('express');
+const queryParser = require('express-query-parser');
 const Walkscore = require('./src/Walkscore');
 const GovernmentFee = require('./src/GovernmentFee');
 const pino = require('express-pino-logger')();
@@ -14,6 +16,10 @@ app.use(pino);
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+app.use(queryParser({
+  parseNull: true,
+  parseBoolean: true,
+}));
 
 // TODO: hack to remove CORS, will need to remove this later
 app.use(function(req, res, next) {
@@ -47,19 +53,9 @@ app.use('/api/realestate', require('./src/routes/realestate'));
 
 app.use('/api/suburbs', require('./src/routes/suburbs'));
 
+// GET /api/government-fee?price=100000&state=VIC&isInvestment=true&isFirstHomeBuyer=false
 app.get('/api/government-fee', (req, res, next) => {
-  const { price, state } = req.query;
-  const options = {
-    price,
-    state,
-  };
-  if (req.query.isInvestment) {
-    options.isInvestment = req.query.isInvestment === 'true';
-  }
-  if (req.query.isFirstHomeBuyer) {
-    options.isFirstHomeBuyer = req.query.isFirstHomeBuyer === 'true';
-  }
-
+  const options = _.pick(req.query, ['price', 'state', 'isInvestment', 'isFirstHomeBuyer']);
   GovernmentFee.getGovernmentFee(options)
     .then((data) => res.status(200).json(data))
     .catch((err) => next(err));

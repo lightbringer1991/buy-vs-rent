@@ -8,7 +8,7 @@ const router = Router();
 router.get('/search', (req, res, next) => {
   const { location } = req.query;
   assert(location, 'Please supply location');
-  const sold = req.query.sold === 'true';
+  const sold = Boolean(req.query.sold);
 
   RealEstate.getPropertiesAtLocation(location, sold)
     .then((data) => res.status(200).json(data))
