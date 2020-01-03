@@ -7,7 +7,6 @@ import { connect } from 'react-redux';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Walkscore from './Walkscore';
-import VacancyRate from './VacancyRate';
 import AveragePrice from './AveragePrice';
 import { getPropertyById } from '../../store/selectors';
 import { formatAddress } from '../helpers';
