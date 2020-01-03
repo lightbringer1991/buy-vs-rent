@@ -9,6 +9,7 @@ class Resources extends React.Component {
   static propTypes = {
     resources: PropTypes.object,
     updateResource: PropTypes.func.isRequired,
+    children: PropTypes.node.isRequired,
   };
 
   state = {

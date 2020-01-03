@@ -2,6 +2,7 @@ import get from 'lodash/get';
 import map from 'lodash/map';
 import pick from 'lodash/pick';
 import classnames from 'classnames';
+import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
 import Col from 'react-bootstrap/Col';
@@ -12,6 +13,7 @@ import { getPropertyById } from '../../store/selectors';
 import { formatAddress } from '../helpers';
 import './PropertyDetails.scss';
 
+// eslint-disable-next-line react/prop-types
 const formatFeatures = ({ generalFeatures }) => {
   const generalData = pick(generalFeatures, ['bedrooms', 'bathrooms', 'parkingSpaces']);
 
@@ -86,6 +88,12 @@ const PropertyDetails = ({ property, radius }) => {
       </Row>
     </div>
   );
+};
+
+PropertyDetails.propTypes = {
+  listingId: PropTypes.string,
+  property: PropTypes.object,
+  radius: PropTypes.number,
 };
 
 export const mapStateToProps = (state, { listingId }) => ({

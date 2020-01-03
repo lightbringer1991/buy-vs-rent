@@ -7,7 +7,7 @@ import { obtainPropertyById } from '../../store/actions';
 import { getPropertyById } from '../../store/selectors';
 import soldIcon from '../../images/sold.png';
 
-const Marker = ({ listingId, property, type, status, getPropertyById }) => {
+const Marker = ({ listingId, property, getPropertyById }) => {
   const [isOpen, setIsOpen] = React.useState(false);
   const markerRef = React.useRef(null);
 

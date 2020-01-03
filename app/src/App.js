@@ -18,7 +18,7 @@ const resources = {
   constants: '/api/constants',
 };
 
-const App = ({ property }) => {
+const App = () => {
   const [searchValue, setSearchValue] = React.useState(getUrlParameter('listingId'));
   const [radius, setRadius] = React.useState(1000);
 
