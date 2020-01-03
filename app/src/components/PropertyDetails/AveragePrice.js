@@ -16,7 +16,7 @@ import './AveragePrice.scss';
 
 const MAX_PROPERTY_COUNT = 5;
 
-const AveragePrice = ({ listingId, properties }) => {
+const AveragePrice = ({ properties }) => {
   const priceData = compact(values(properties).map(({ price }) => {
     if (!price) return 0;
     return parseFloat(price.display.replace(/\$|,/g, ''));

@@ -1,0 +1,5 @@
+#!/bin/bash -e
+
+cd api && eslint --config ./.eslintrc.js .
+cd ../app && eslint --config ./.eslintrc.js .
+cd ..
