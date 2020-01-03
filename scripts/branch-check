@@ -1,0 +1,25 @@
+#!/bin/bash
+
+# Protect master from accidental commits.
+echo "🔍  Checking branch name..."
+branchName=$(git branch | grep '*' | sed 's/* //')
+
+if [ $branchName == 'master' ]
+then
+  echo -e "\n💔  Cannot commit to master, please create a branch.\n" && exit 1
+fi
+
+if [[ $branchName = *[![:ascii:]]* ]]
+then
+  echo -e "\n💔  Branch name contains non ASCII characters, please rename branch.\n" && exit 1
+fi
+
+if [[ $branchName =~ [A-Z] ]]
+then
+  echo -e "\n💔  Branch name should not contain any upper case letters.\n" && exit 1
+fi
+
+if [[ $branchName =~ '/' ]]
+then
+  echo -e "\n💔  Branch name should not contain '/' character.\n" && exit 1
+fi
