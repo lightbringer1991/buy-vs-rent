@@ -28,6 +28,8 @@ const getSuburbDataFromCacheMw = (req, res, next) => {
 };
 
 const getSuburbVacancyRatesMw = (req, res, next) => {
+  if (!_.isNil(_.get(req.suburb, 'vacancyRate'))) return next();
+  
   const sqmResearch = new SqmResearch();
   sqmResearch.getVacancyRate(req.suburb.postcode)
     .then((data) => {
